@@ -53,3 +53,23 @@ databaseChangeLog:
                     referencedTableName: contatos
                     referencedColumnNames: id
                     foreignKeyName: tipos_de_contatos_contatos_id_fk
+
+              - column:
+                  name: created_at
+                  type: datetime
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: created_by
+                  type: varchar(60)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: last_modified_at
+                  type: datetime
+
+              - column:
+                  name: last_modified_by
+                  type: varchar(60)

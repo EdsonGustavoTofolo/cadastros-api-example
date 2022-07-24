@@ -80,6 +80,19 @@ databaseChangeLog:
                   name: last_modified_by
                   type: varchar(60)
 
+        - createTable:
+            tableName: fornecedores_aud
+            columns:
+              - column:
+                  name: rev
+                  type: bigint
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: revtype
+                  type: tinyint
+
         - createIndex:
             clustered: true
             columns:

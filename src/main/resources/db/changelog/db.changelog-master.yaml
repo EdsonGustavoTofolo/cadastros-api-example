@@ -1,21 +1,23 @@
 databaseChangeLog:
   - include:
-      file: db/changelog/changes/001.create-table-paises.yaml
+      file: db/changelog/changes/create-table-revinfo.yaml
   - include:
-      file: db/changelog/changes/002.create-table-estados.yaml
+      file: db/changelog/changes/create-table-paises.yaml
   - include:
-      file: db/changelog/changes/003.create-table-cidades.yaml
+      file: db/changelog/changes/create-table-estados.yaml
   - include:
-      file: db/changelog/changes/004.insert-paises.yaml
+      file: db/changelog/changes/create-table-cidades.yaml
   - include:
-      file: db/changelog/changes/005.insert-estados-brasileiros.yaml
+      file: db/changelog/changes/insert-paises.yaml
   - include:
-      file: db/changelog/changes/006.insert-cidades-brasileiras-parana.yaml
+      file: db/changelog/changes/insert-estados-brasileiros.yaml
   - include:
-      file: db/changelog/changes/007.create-table-enderecos.yaml
+      file: db/changelog/changes/insert-cidades-brasileiras-parana.yaml
   - include:
-      file: db/changelog/changes/008.create-table-contatos.yaml
+      file: db/changelog/changes/create-table-enderecos.yaml
   - include:
-      file: db/changelog/changes/009.create-table-tipos-de-contatos.yaml
+      file: db/changelog/changes/create-table-contatos.yaml
   - include:
-      file: db/changelog/changes/010.create-table-fornecedores.yaml
+      file: db/changelog/changes/create-table-tipos-de-contatos.yaml
+  - include:
+      file: db/changelog/changes/create-table-fornecedores.yaml
