@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-table-contatos
+      author: edson.tofolo
+      preConditions:
+        - onFail: MARK_RAN
+          not:
+            - tableExists:
+                tableName: contatos
+      changes:
+        - createTable:
+            tableName: contatos
+            columns:
+              - column:
+                  name: id
+                  type: integer
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: contatos_id_pk
+
+              - column:
+                  name: observacao
+                  type: text
