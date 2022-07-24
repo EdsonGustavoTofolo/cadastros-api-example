@@ -1,5 +1,6 @@
 package br.edu.utfpr.labscontrol.cadastrosapi.application.dataprovider.entity;
 
+import br.edu.utfpr.labscontrol.cadastrosapi.application.dataprovider.entity.base.AuditableEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -7,7 +8,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "fornecedores")
@@ -16,7 +17,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @DynamicUpdate
-public class FornecedorEntity {
+public class FornecedorEntity extends AuditableEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -31,7 +32,4 @@ public class FornecedorEntity {
     private String observacao;
     @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private ContatosEntity contatos;
-    @Column(nullable = false, updatable = false)
-    private LocalDateTime dataHoraCriacao;
-    private LocalDateTime dataHoraUltimaAtualizacao;
 }

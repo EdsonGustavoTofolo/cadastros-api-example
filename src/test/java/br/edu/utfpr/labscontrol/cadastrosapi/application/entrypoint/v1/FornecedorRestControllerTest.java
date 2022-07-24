@@ -31,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class FornecedorRestControllerImplTest {
+class FornecedorRestControllerTest {
 
     private static final String URL_API_V1_FORNECEDORES = "/api/v1/fornecedores";
 

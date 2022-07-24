@@ -61,14 +61,24 @@ databaseChangeLog:
                     foreignKeyName: fornecedores_contatos_id_fk
 
               - column:
-                  name: data_hora_criacao
+                  name: created_at
                   type: datetime
                   constraints:
                     nullable: false
 
               - column:
-                  name: data_hora_ultima_atualizacao
+                  name: created_by
+                  type: varchar(60)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: last_modified_at
                   type: datetime
+
+              - column:
+                  name: last_modified_by
+                  type: varchar(60)
 
         - createIndex:
             clustered: true

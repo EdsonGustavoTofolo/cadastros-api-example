@@ -27,16 +27,16 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @RequestMapping(value = "/api/v1/fornecedores", produces = APPLICATION_JSON_VALUE)
 @Tag(name = "Fornecedor", description = "Cadastro de Fornecedor")
-public class FornecedorRestControllerImpl extends CrudControllerBase<FornecedorDto, Integer> {
+public class FornecedorRestController extends CrudControllerBase<FornecedorDto, Integer> {
 
     private final FindFornecedorByCnpjQuery findFornecedorByCnpjQuery;
 
-    public FornecedorRestControllerImpl(CreateFornecedorCommand createEntityCommand,
-                                        UpdateFornecedorCommand updateEntityCommand,
-                                        DeleteFornecedorByIdCommand deleteEntityByIdCommand,
-                                        FindFornecedorByIdQuery findEntityByIdQuery,
-                                        FindFornecedorByFilterAndPageableQuery findEntityByFilterAndPageable,
-                                        FindFornecedorByCnpjQuery findFornecedorByCnpjQuery) {
+    public FornecedorRestController(CreateFornecedorCommand createEntityCommand,
+                                    UpdateFornecedorCommand updateEntityCommand,
+                                    DeleteFornecedorByIdCommand deleteEntityByIdCommand,
+                                    FindFornecedorByIdQuery findEntityByIdQuery,
+                                    FindFornecedorByFilterAndPageableQuery findEntityByFilterAndPageable,
+                                    FindFornecedorByCnpjQuery findFornecedorByCnpjQuery) {
         super(createEntityCommand, updateEntityCommand, deleteEntityByIdCommand, findEntityByIdQuery, findEntityByFilterAndPageable);
         this.findFornecedorByCnpjQuery = findFornecedorByCnpjQuery;
     }
