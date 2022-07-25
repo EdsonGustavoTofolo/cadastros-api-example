@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.envers.AuditOverride;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
@@ -19,6 +20,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @DynamicUpdate
 @Audited
+@AuditOverride(forClass = AuditableEntity.class)
 public class FornecedorEntity extends AuditableEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

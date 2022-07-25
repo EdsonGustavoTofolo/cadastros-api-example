@@ -73,3 +73,78 @@ databaseChangeLog:
               - column:
                   name: last_modified_by
                   type: varchar(60)
+
+        - createTable:
+            tableName: tipos_de_contatos_aud
+            columns:
+              - column:
+                  name: id
+                  type: integer
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: tipo_de_contato
+                  type: varchar(8)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: ddd
+                  type: varchar(2)
+
+              - column:
+                  name: numero
+                  type: varchar(10)
+
+              - column:
+                  name: endereco_email
+                  type: varchar(255)
+
+              - column:
+                  name: url_site
+                  type: varchar(255)
+
+              - column:
+                  name: texto
+                  type: varchar(255)
+
+              - column:
+                  name: contatos_id
+                  type: integer
+
+              - column:
+                  name: created_at
+                  type: datetime
+
+              - column:
+                  name: created_by
+                  type: varchar(60)
+
+              - column:
+                  name: last_modified_at
+                  type: datetime
+
+              - column:
+                  name: last_modified_by
+                  type: varchar(60)
+
+              - column:
+                  name: rev
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    referencedTableName: revinfo
+                    referencedColumnNames: rev
+                    foreignKeyName: tipos_de_contatos_aud_revinfo_rev_fk
+
+              - column:
+                  name: revtype
+                  type: tinyint
+
+        - addPrimaryKey:
+            tableName: tipos_de_contatos_aud
+            columnNames: id, rev
+            validate: false
+            clustered: false
+            constraintName: tipos_de_contatos_aud_id_rev_pk

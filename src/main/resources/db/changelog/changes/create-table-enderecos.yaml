@@ -79,3 +79,84 @@ databaseChangeLog:
               - column:
                   name: last_modified_by
                   type: varchar(60)
+
+        - createTable:
+            tableName: enderecos_aud
+            columns:
+              - column:
+                  name: id
+                  type: integer
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: logradouro
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: numero
+                  type: varchar(10)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: bairro
+                  type: varchar(60)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: complemento
+                  type: varchar(100)
+
+              - column:
+                  name: ponto_de_referencia
+                  type: varchar(100)
+
+              - column:
+                  name: cep
+                  type: varchar(8)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: cidade_id
+                  type: varchar(10)
+
+              - column:
+                  name: created_at
+                  type: datetime
+
+              - column:
+                  name: created_by
+                  type: varchar(60)
+
+              - column:
+                  name: last_modified_at
+                  type: datetime
+
+              - column:
+                  name: last_modified_by
+                  type: varchar(60)
+
+              - column:
+                  name: rev
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    referencedTableName: revinfo
+                    referencedColumnNames: rev
+                    foreignKeyName: enderecos_aud_revinfo_rev_fk
+
+              - column:
+                  name: revtype
+                  type: tinyint
+
+        - addPrimaryKey:
+            tableName: enderecos_aud
+            columnNames: id, rev
+            validate: false
+            clustered: false
+            constraintName: enderecos_aud_id_rev_pk

@@ -2,6 +2,7 @@ package br.edu.utfpr.labscontrol.cadastrosapi.application.dataprovider.entity;
 
 import br.edu.utfpr.labscontrol.cadastrosapi.application.dataprovider.entity.base.AuditableEntity;
 import lombok.Data;
+import org.hibernate.envers.AuditOverride;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
@@ -14,6 +15,7 @@ import java.util.Objects;
 @Table(name = "contatos")
 @Data
 @Audited
+@AuditOverride(forClass = AuditableEntity.class)
 public class ContatosEntity extends AuditableEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

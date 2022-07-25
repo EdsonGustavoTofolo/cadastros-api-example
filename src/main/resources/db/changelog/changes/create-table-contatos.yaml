@@ -43,3 +43,52 @@ databaseChangeLog:
               - column:
                   name: last_modified_by
                   type: varchar(60)
+
+        - createTable:
+            tableName: contatos_aud
+            columns:
+              - column:
+                  name: id
+                  type: integer
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: observacao
+                  type: text
+
+              - column:
+                  name: created_at
+                  type: datetime
+
+              - column:
+                  name: created_by
+                  type: varchar(60)
+
+              - column:
+                  name: last_modified_at
+                  type: datetime
+
+              - column:
+                  name: last_modified_by
+                  type: varchar(60)
+
+              - column:
+                  name: rev
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    referencedTableName: revinfo
+                    referencedColumnNames: rev
+                    foreignKeyName: contatos_aud_revinfo_rev_fk
+
+              - column:
+                  name: revtype
+                  type: tinyint
+
+        - addPrimaryKey:
+            tableName: contatos_aud
+            columnNames: id, rev
+            validate: false
+            clustered: false
+            constraintName: contatos_aud_id_rev_pk

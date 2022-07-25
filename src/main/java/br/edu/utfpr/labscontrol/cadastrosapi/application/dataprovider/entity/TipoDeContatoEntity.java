@@ -5,6 +5,7 @@ import br.edu.utfpr.labscontrol.cadastrosapi.application.dataprovider.entity.enu
 import br.edu.utfpr.labscontrol.cadastrosapi.core.entity.vo.contato.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.envers.AuditOverride;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
@@ -15,6 +16,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Data
 @Audited
+@AuditOverride(forClass = AuditableEntity.class)
 public class TipoDeContatoEntity extends AuditableEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
