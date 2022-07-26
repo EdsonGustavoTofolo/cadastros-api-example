@@ -1,5 +1,6 @@
 package br.edu.utfpr.labscontrol.cadastrosapi.application.dataprovider.repository.impl;
 
+import br.edu.utfpr.labscontrol.cadastrosapi.application.dataprovider.entity.FornecedorEntity;
 import br.edu.utfpr.labscontrol.cadastrosapi.application.dataprovider.mapper.FornecedorEntityMapper;
 import br.edu.utfpr.labscontrol.cadastrosapi.application.dataprovider.repository.CidadeJpaRepository;
 import br.edu.utfpr.labscontrol.cadastrosapi.application.dataprovider.repository.FornecedorJpaRepository;
@@ -8,6 +9,9 @@ import br.edu.utfpr.labscontrol.cadastrosapi.core.entity.Fornecedor;
 import br.edu.utfpr.labscontrol.cadastrosapi.shared.exception.BusinessException;
 import br.edu.utfpr.labscontrol.cadastrosapi.shared.vo.Cnpj;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -56,6 +60,13 @@ public class FornecedorRepositoryImpl implements FornecedorRepository {
     public Optional<Fornecedor> buscarPorCnpj(final Cnpj cnpj) {
         return this.fornecedorRepository.findByCnpj(cnpj.toString())
                 .map(this.fornecedorEntityMapper::toModel);
+    }
+
+    @Override
+    public Page<Fornecedor> buscaPaginada(Fornecedor filtros, Pageable pageable) {
+        var entityFiltros = this.fornecedorEntityMapper.toEntity(filtros);
+        Example<FornecedorEntity> example = Example.of(entityFiltros);
+        return this.fornecedorRepository.findAll(example, pageable).map(this.fornecedorEntityMapper::toModel);
     }
 
     @Override

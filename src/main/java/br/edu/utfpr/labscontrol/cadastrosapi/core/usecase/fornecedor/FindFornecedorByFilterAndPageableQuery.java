@@ -1,6 +1,7 @@
 package br.edu.utfpr.labscontrol.cadastrosapi.core.usecase.fornecedor;
 
 import br.edu.utfpr.labscontrol.cadastrosapi.core.dataprovider.FornecedorRepository;
+import br.edu.utfpr.labscontrol.cadastrosapi.core.entity.Fornecedor;
 import br.edu.utfpr.labscontrol.cadastrosapi.shared.dto.FornecedorDto;
 import br.edu.utfpr.labscontrol.cadastrosapi.shared.mapper.FornecedorMapper;
 import br.edu.utfpr.labscontrol.cadastrosapi.shared.usecase.FindEntityByFilterAndPageableQuery;
@@ -16,6 +17,8 @@ public class FindFornecedorByFilterAndPageableQuery implements FindEntityByFilte
 
     @Override
     public Page<FornecedorDto> execute(FornecedorDto filters, Pageable pageable) {
-        return null;
+        var filtros = this.mapper.toModel(filters);
+        Page<Fornecedor> page = this.fornecedorRepository.buscaPaginada(filtros, pageable);
+        return page.map(this.mapper::toDto);
     }
 }
