@@ -1,6 +1,6 @@
 package br.edu.utfpr.labscontrol.cadastrosapi.application.entrypoint;
 
-import br.edu.utfpr.labscontrol.cadastrosapi.application.entrypoint.exception.BusinessException;
+import br.edu.utfpr.labscontrol.cadastrosapi.shared.exception.BusinessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;

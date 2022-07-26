@@ -1,6 +1,6 @@
 package br.edu.utfpr.labscontrol.cadastrosapi.core.entity.vo;
 
-import br.edu.utfpr.labscontrol.cadastrosapi.application.entrypoint.exception.BusinessException;
+import br.edu.utfpr.labscontrol.cadastrosapi.shared.exception.BusinessException;
 import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode

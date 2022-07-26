@@ -1,6 +1,6 @@
 package br.edu.utfpr.labscontrol.cadastrosapi.core.util;
 
-import br.edu.utfpr.labscontrol.cadastrosapi.application.entrypoint.exception.BusinessException;
+import br.edu.utfpr.labscontrol.cadastrosapi.shared.exception.BusinessException;
 import org.springframework.http.HttpStatus;
 
 import java.util.InputMismatchException;

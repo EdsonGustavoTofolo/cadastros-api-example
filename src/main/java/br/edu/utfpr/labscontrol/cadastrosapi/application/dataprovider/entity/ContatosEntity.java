@@ -1,15 +1,15 @@
 package br.edu.utfpr.labscontrol.cadastrosapi.application.dataprovider.entity;
 
 import br.edu.utfpr.labscontrol.cadastrosapi.application.dataprovider.entity.base.AuditableEntity;
+import br.edu.utfpr.labscontrol.cadastrosapi.core.entity.Contatos;
+import br.edu.utfpr.labscontrol.cadastrosapi.shared.mapper.TipoDeContatoMapper;
 import lombok.Data;
 import org.hibernate.envers.AuditOverride;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "contatos")
@@ -24,11 +24,13 @@ public class ContatosEntity extends AuditableEntity implements Serializable {
     private List<TipoDeContatoEntity> tipos;
     private String observacao;
 
-    public void adicionarTipo(TipoDeContatoEntity tipo) {
-        tipo.setContatos(this);
-        if (Objects.isNull(this.tipos)) {
-            this.tipos = new ArrayList<>();
-        }
-        this.tipos.add(tipo);
+    public void of(final Contatos contatos) {
+        var tipoDeContatoMapper = new TipoDeContatoMapper();
+        contatos.getTipos().forEach(tipoDeContato -> {
+            TipoDeContatoEntity tipoDeContatoEntity = tipoDeContatoMapper.map(tipoDeContato, TipoDeContatoEntity.class);
+            tipoDeContatoEntity.setContatos(this);
+            tipos.add(tipoDeContatoEntity);
+        });
+        this.observacao = contatos.getObservacao();
     }
 }

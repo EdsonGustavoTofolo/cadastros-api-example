@@ -33,7 +33,7 @@ public class ContatosDto implements TipoDeContatoBase {
     @Size(message = "Texto: tamanho máximo de {max} caracteres", max = 255)
     String texto;
 
-    public static ContatosDto outroContato(String texto) {
+    public static ContatosDto outro(String texto) {
         return ContatosDto.builder()
                 .tipoDeContato(TipoDeContatoEnum.OUTRO)
                 .texto(texto)

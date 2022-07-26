@@ -101,6 +101,13 @@ public class FornecedorRestController extends CrudControllerBase<FornecedorDto, 
         return super.getById(id);
     }
 
+    @Operation(summary = "Busca de fornecedores",
+            description = "Busca fornecedores paginados conforme filtros e paginação informados")
+    @Override
+    public Page<FornecedorDto> getAllByFilterAndPageable(Map<String, String> filtros, Pageable pageable) {
+        return super.getAllByFilterAndPageable(filtros, pageable);
+    }
+
     @Operation(summary = "Busca um fornecedor",
             description = "Busca um fornecedor pelo Cnpj informado")
     @ApiResponses(value = {
@@ -116,12 +123,5 @@ public class FornecedorRestController extends CrudControllerBase<FornecedorDto, 
     public ResponseEntity<FornecedorDto> buscarFornecedorPorCnpj(@PathVariable Cnpj cnpj) {
         var fornecedor = this.findFornecedorByCnpjQuery.execute(cnpj);
         return ResponseEntity.ok(fornecedor);
-    }
-
-    @Operation(summary = "Busca de fornecedores",
-            description = "Busca fornecedores paginados conforme filtros e paginação informados")
-    @Override
-    public Page<FornecedorDto> getAllByFilterAndPageable(Map<String, String> filtros, Pageable pageable) {
-        return super.getAllByFilterAndPageable(filtros, pageable);
     }
 }

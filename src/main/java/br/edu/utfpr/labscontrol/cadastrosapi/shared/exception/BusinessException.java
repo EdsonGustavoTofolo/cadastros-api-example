@@ -1,4 +1,4 @@
-package br.edu.utfpr.labscontrol.cadastrosapi.application.entrypoint.exception;
+package br.edu.utfpr.labscontrol.cadastrosapi.shared.exception;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;

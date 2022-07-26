@@ -5,7 +5,6 @@ import br.edu.utfpr.labscontrol.cadastrosapi.application.dataprovider.repository
 import br.edu.utfpr.labscontrol.cadastrosapi.application.dataprovider.repository.FornecedorJpaRepository;
 import br.edu.utfpr.labscontrol.cadastrosapi.core.dataprovider.FornecedorRepository;
 import br.edu.utfpr.labscontrol.cadastrosapi.core.entity.vo.contato.*;
-import br.edu.utfpr.labscontrol.cadastrosapi.shared.mapper.TipoDeContatoMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -40,7 +39,9 @@ class FornecedorRepositoryImplTest {
     @BeforeEach
     public void setup() {
         this.fornecedorRepository = new FornecedorRepositoryImpl(
-                fornecedorJpaRepository, cidadeJpaRepository, new TipoDeContatoMapper());
+                fornecedorJpaRepository,
+                cidadeJpaRepository,
+                null);
     }
 
     @Test

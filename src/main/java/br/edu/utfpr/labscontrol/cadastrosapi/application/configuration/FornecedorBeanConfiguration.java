@@ -29,17 +29,17 @@ public class FornecedorBeanConfiguration {
 
     @Bean
     public UpdateFornecedorCommand updateFornecedorCommand() {
-        return new UpdateFornecedorCommand(this.fornecedorRepository, this.mapper);
+        return new UpdateFornecedorCommand(this.fornecedorRepository);
     }
 
     @Bean
     public DeleteFornecedorByIdCommand deleteFornecedorByIdCommand() {
-        return new DeleteFornecedorByIdCommand();
+        return new DeleteFornecedorByIdCommand(this.fornecedorRepository);
     }
 
     @Bean
     public FindFornecedorByIdQuery findFornecedorByIdQuery() {
-        return new FindFornecedorByIdQuery();
+        return new FindFornecedorByIdQuery(this.fornecedorRepository, this.mapper);
     }
 
     @Bean
@@ -49,7 +49,7 @@ public class FornecedorBeanConfiguration {
 
     @Bean
     public FindFornecedorByFilterAndPageableQuery findFornecedorByFilterAndPageable() {
-        return new FindFornecedorByFilterAndPageableQuery();
+        return new FindFornecedorByFilterAndPageableQuery(this.fornecedorRepository, this.mapper);
     }
 
     private List<ValidadorCadastroFornecedor> validadoresCadastrodeFornecedor() {

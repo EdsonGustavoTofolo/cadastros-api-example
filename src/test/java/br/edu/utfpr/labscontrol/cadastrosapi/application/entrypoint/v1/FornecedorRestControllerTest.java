@@ -1,10 +1,10 @@
 package br.edu.utfpr.labscontrol.cadastrosapi.application.entrypoint.v1;
 
-import br.edu.utfpr.labscontrol.cadastrosapi.application.entrypoint.exception.BusinessException;
 import br.edu.utfpr.labscontrol.cadastrosapi.core.usecase.fornecedor.CreateFornecedorCommand;
 import br.edu.utfpr.labscontrol.cadastrosapi.core.usecase.fornecedor.FindFornecedorByCnpjQuery;
 import br.edu.utfpr.labscontrol.cadastrosapi.core.usecase.fornecedor.UpdateFornecedorCommand;
 import br.edu.utfpr.labscontrol.cadastrosapi.shared.dto.FornecedorDto;
+import br.edu.utfpr.labscontrol.cadastrosapi.shared.exception.EntityNotFoundException;
 import br.edu.utfpr.labscontrol.cadastrosapi.shared.vo.Cnpj;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Disabled;
@@ -23,9 +23,10 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static br.edu.utfpr.labscontrol.cadastrosapi.application.entrypoint.v1.builder.FornecedorDtoBuilder.umFornecedor;
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -50,7 +51,7 @@ class FornecedorRestControllerTest {
     @Test
     void naoDeveCriarFonecedorSemCnpj() throws Exception {
         // cenario
-        var fornecedor = umFornecedor().get();
+        var fornecedor = umFornecedor().semCnpj().get();
 
         var fornecedorJson = this.mapper.writeValueAsString(fornecedor);
 
@@ -65,7 +66,7 @@ class FornecedorRestControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.status").value(HttpStatus.BAD_REQUEST.value()))
                 .andExpect(jsonPath("$.mensagens").isArray())
-                .andExpect(jsonPath("$.mensagens[0]").value("CNPJ deve ser informado"))
+                .andExpect(jsonPath("$.mensagens.length()", is(2)))
                 .andDo(print()).andReturn();
     }
 
@@ -78,7 +79,7 @@ class FornecedorRestControllerTest {
 
         // acao
         var perform = this.mvc.perform(
-                put(URL_API_V1_FORNECEDORES + "/1")
+                patch(URL_API_V1_FORNECEDORES + "/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(fornecedorJson));
 
@@ -87,7 +88,7 @@ class FornecedorRestControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.status").value(HttpStatus.BAD_REQUEST.value()))
                 .andExpect(jsonPath("$.mensagens").isArray())
-                .andExpect(jsonPath("$.mensagens[0]").value("CNPJ deve ser informado"))
+                .andExpect(jsonPath("$.mensagens.length()", is(2)))
                 .andDo(print()).andReturn();
     }
 
@@ -127,7 +128,7 @@ class FornecedorRestControllerTest {
 
         // execucao
         ResultActions perform = this.mvc.perform(
-                put(URL_API_V1_FORNECEDORES + "/" + id)
+                patch(URL_API_V1_FORNECEDORES + "/" + id)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(fornecedorJson));
 
@@ -144,12 +145,12 @@ class FornecedorRestControllerTest {
         //cenario
         var cnpj = new Cnpj("70511054000105");
 
-        var ex = new BusinessException("Fornecedor não encontrado com o CNPJ informado!", HttpStatus.NOT_FOUND);
+        var ex = new EntityNotFoundException("Fornecedor não encontrado com o CNPJ informado!");
         Mockito.doThrow(ex).when(findFornecedorByCnpjQuery).execute(cnpj);
 
         // perform/execucao
         var perform = this.mvc.perform(MockMvcRequestBuilders
-                .get(URL_API_V1_FORNECEDORES + "/" + cnpj));
+                .get(URL_API_V1_FORNECEDORES + "/cnpj/" + cnpj));
 
         perform.andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.status").value(HttpStatus.NOT_FOUND.value()))
@@ -167,7 +168,7 @@ class FornecedorRestControllerTest {
 
         // perform/execucao
         var perform = this.mvc.perform(MockMvcRequestBuilders
-                .get(URL_API_V1_FORNECEDORES + "/" + fornecedorDto.getCnpj()));
+                .get(URL_API_V1_FORNECEDORES + "/cnpj/" + fornecedorDto.getCnpj()));
 
         // expectations/verificacao
         perform

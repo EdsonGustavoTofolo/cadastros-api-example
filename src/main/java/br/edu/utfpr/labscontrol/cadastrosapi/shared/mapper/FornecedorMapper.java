@@ -38,11 +38,14 @@ public interface FornecedorMapper {
 
     @Named("tipoDeContatosToContatosBaseModel")
     static List<ContatosDto> tipoDeContatosToContatosBaseModel(List<TipoDeContato> tipoDeContatos) {
-        return tipoDeContatos.stream().map(tipo -> new TipoDeContatoMapper().map(tipo)).toList();
+        var tipoDeContatoMapper = new TipoDeContatoMapper();
+        return tipoDeContatos.stream().map(tipoDeContato ->
+                tipoDeContatoMapper.map(tipoDeContato, ContatosDto.class)).toList();
     }
 
     @Named("contatosBaseModelToTipoDeContatos")
     static List<TipoDeContato> contatosBaseModelToTipoDeContatos(List<ContatosDto> contatos) {
-        return contatos.stream().map(contato -> new TipoDeContatoMapper().map(contato)).toList();
+        var tipoDeContatoMapper = new TipoDeContatoMapper();
+        return contatos.stream().map(tipoDeContatoMapper::map).toList();
     }
 }

@@ -1,6 +1,7 @@
 package br.edu.utfpr.labscontrol.cadastrosapi.application.dataprovider.entity;
 
 import br.edu.utfpr.labscontrol.cadastrosapi.application.dataprovider.entity.base.AuditableEntity;
+import br.edu.utfpr.labscontrol.cadastrosapi.core.entity.Fornecedor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -36,4 +37,12 @@ public class FornecedorEntity extends AuditableEntity implements Serializable {
     private String observacao;
     @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private ContatosEntity contatos;
+
+    public void of(final Fornecedor fornecedor) {
+        this.cnpj = fornecedor.getCnpj().toString();
+        this.razaoSocial = fornecedor.getRazaoSocial();
+        this.nomeFantasia = fornecedor.getNomeFantasia();
+        this.endereco.of(fornecedor.getEndereco());
+        this.contatos.of(fornecedor.getContatos());
+    }
 }
