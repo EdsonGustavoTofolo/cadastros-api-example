@@ -1,6 +1,7 @@
 package br.edu.utfpr.labscontrol.cadastrosapi.application.entrypoint.v1;
 
 import br.edu.utfpr.labscontrol.cadastrosapi.application.entrypoint.base.CrudControllerBase;
+import br.edu.utfpr.labscontrol.cadastrosapi.application.entrypoint.v1.dto.FornecedorFilter;
 import br.edu.utfpr.labscontrol.cadastrosapi.core.usecase.fornecedor.*;
 import br.edu.utfpr.labscontrol.cadastrosapi.shared.dto.FornecedorDto;
 import br.edu.utfpr.labscontrol.cadastrosapi.shared.vo.Cnpj;
@@ -22,7 +23,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @RequestMapping(value = "/api/v1/fornecedores", produces = APPLICATION_JSON_VALUE)
 @Tag(name = "Fornecedor", description = "Cadastro de Fornecedor")
-public class FornecedorRestController extends CrudControllerBase<FornecedorDto, Integer> {
+public class FornecedorRestController extends CrudControllerBase<FornecedorDto, FornecedorFilter, Integer> {
 
     private final FindFornecedorByCnpjQuery findFornecedorByCnpjQuery;
 
@@ -99,7 +100,7 @@ public class FornecedorRestController extends CrudControllerBase<FornecedorDto, 
     @Operation(summary = "Busca de fornecedores",
             description = "Busca fornecedores paginados conforme filtros e paginação informados")
     @Override
-    public Page<FornecedorDto> getAllByFilterAndPageable(@RequestBody FornecedorDto filtros, Pageable pageable) {
+    public Page<FornecedorDto> getAllByFilterAndPageable(@RequestBody FornecedorFilter filtros, Pageable pageable) {
         return super.getAllByFilterAndPageable(filtros, pageable);
     }
 

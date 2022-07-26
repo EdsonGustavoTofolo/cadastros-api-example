@@ -1,7 +1,7 @@
 package br.edu.utfpr.labscontrol.cadastrosapi.application.entrypoint.v1.builder;
 
 import br.edu.utfpr.labscontrol.cadastrosapi.application.dataprovider.entity.enums.TipoDeContatoEnum;
-import br.edu.utfpr.labscontrol.cadastrosapi.application.entrypoint.v1.dto.ContatosDto;
+import br.edu.utfpr.labscontrol.cadastrosapi.shared.dto.ContatosDto;
 
 public class ContatosDtoBuilder {
 

@@ -1,5 +1,6 @@
 package br.edu.utfpr.labscontrol.cadastrosapi.core.dataprovider;
 
+import br.edu.utfpr.labscontrol.cadastrosapi.application.entrypoint.v1.dto.FornecedorFilter;
 import br.edu.utfpr.labscontrol.cadastrosapi.core.entity.Fornecedor;
 import br.edu.utfpr.labscontrol.cadastrosapi.shared.vo.Cnpj;
 import org.springframework.data.domain.Page;
@@ -13,5 +14,5 @@ public interface FornecedorRepository {
     void excluir(final Fornecedor fornecedor);
     Optional<Fornecedor> buscarPorId(final Integer id);
     Optional<Fornecedor> buscarPorCnpj(final Cnpj cnpj);
-    Page<Fornecedor> buscaPaginada(final Fornecedor filtros, Pageable pageable);
+    Page<Fornecedor> buscaPaginada(final FornecedorFilter filtros, Pageable pageable);
 }

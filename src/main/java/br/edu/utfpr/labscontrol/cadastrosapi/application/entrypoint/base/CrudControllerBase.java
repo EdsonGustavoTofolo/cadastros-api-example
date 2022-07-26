@@ -10,13 +10,13 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 
 @RequiredArgsConstructor
-public abstract class CrudControllerBase<T, ID> implements CrudController<T, ID> {
+public abstract class CrudControllerBase<T, F, ID> implements CrudController<T, F, ID> {
 
     private final CreateEntityCommand<T, ID> createEntityCommand;
     private final UpdateEntityCommand<T, ID> updateEntityCommand;
     private final DeleteEntityByIdCommand<ID> deleteEntityByIdCommand;
     private final FindEntityByIdQuery<T, ID> findEntityByIdQuery;
-    private final FindEntityByFilterAndPageableQuery<T> findEntityByFilterPageable;
+    private final FindEntityByFilterAndPageableQuery<T, F> findEntityByFilterPageable;
 
     @Override
     public ResponseEntity<Void> create(T objectDto) {
@@ -48,7 +48,7 @@ public abstract class CrudControllerBase<T, ID> implements CrudController<T, ID>
     }
 
     @Override
-    public Page<T> getAllByFilterAndPageable(T filtros, Pageable pageable) {
+    public Page<T> getAllByFilterAndPageable(F filtros, Pageable pageable) {
         return this.findEntityByFilterPageable.execute(filtros, pageable);
     }
 }

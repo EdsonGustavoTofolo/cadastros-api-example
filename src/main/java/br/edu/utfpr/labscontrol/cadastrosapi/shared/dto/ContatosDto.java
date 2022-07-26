@@ -1,8 +1,7 @@
-package br.edu.utfpr.labscontrol.cadastrosapi.application.entrypoint.v1.dto;
+package br.edu.utfpr.labscontrol.cadastrosapi.shared.dto;
 
 import br.edu.utfpr.labscontrol.cadastrosapi.application.annotations.Conditional;
 import br.edu.utfpr.labscontrol.cadastrosapi.application.dataprovider.entity.enums.TipoDeContatoEnum;
-import br.edu.utfpr.labscontrol.cadastrosapi.shared.dto.TipoDeContatoBase;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
 import lombok.Value;

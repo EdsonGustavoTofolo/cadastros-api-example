@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-public interface CrudController<T, ID> {
+public interface CrudController<T, F, ID> {
 
     @PostMapping
     ResponseEntity<Void> create(@Valid @RequestBody T objectDto);
@@ -27,5 +27,5 @@ public interface CrudController<T, ID> {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    Page<T> getAllByFilterAndPageable(T filtros, Pageable pageable);
+    Page<T> getAllByFilterAndPageable(F filtros, Pageable pageable);
 }

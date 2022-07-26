@@ -1,5 +1,6 @@
 package br.edu.utfpr.labscontrol.cadastrosapi.application.entrypoint.v1;
 
+import br.edu.utfpr.labscontrol.cadastrosapi.application.entrypoint.v1.dto.FornecedorFilter;
 import br.edu.utfpr.labscontrol.cadastrosapi.core.usecase.fornecedor.CreateFornecedorCommand;
 import br.edu.utfpr.labscontrol.cadastrosapi.core.usecase.fornecedor.FindFornecedorByCnpjQuery;
 import br.edu.utfpr.labscontrol.cadastrosapi.core.usecase.fornecedor.FindFornecedorByFilterAndPageableQuery;
@@ -60,7 +61,7 @@ class FornecedorRestControllerTest {
         // cenario
         var pageNumber = 0;
         var pageSize = 10;
-        var fornecedorForFilter = umFornecedor().get();
+        var fornecedorForFilter = FornecedorFilter.builder().nomeFantasia("Fornecedor & Cia").build();
         var filtros = this.mapper.writeValueAsString(fornecedorForFilter);
         var pageable = "page=" + pageNumber + "&size=" + pageSize;
         var fornecedores = List.of(umFornecedor().get());
@@ -68,7 +69,7 @@ class FornecedorRestControllerTest {
         var page = new PageImpl<>(fornecedores, PageRequest.of(pageNumber, pageSize), fornecedores.size());
 
         Mockito.when(fornecedorByFilterAndPageableQuery
-                .execute(any(FornecedorDto.class), any(Pageable.class)))
+                .execute(any(FornecedorFilter.class), any(Pageable.class)))
                 .thenReturn(page);
 
         // execucao

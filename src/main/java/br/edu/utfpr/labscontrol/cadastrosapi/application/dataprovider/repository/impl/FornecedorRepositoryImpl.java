@@ -4,12 +4,14 @@ import br.edu.utfpr.labscontrol.cadastrosapi.application.dataprovider.entity.For
 import br.edu.utfpr.labscontrol.cadastrosapi.application.dataprovider.mapper.FornecedorEntityMapper;
 import br.edu.utfpr.labscontrol.cadastrosapi.application.dataprovider.repository.CidadeJpaRepository;
 import br.edu.utfpr.labscontrol.cadastrosapi.application.dataprovider.repository.FornecedorJpaRepository;
+import br.edu.utfpr.labscontrol.cadastrosapi.application.entrypoint.v1.dto.FornecedorFilter;
 import br.edu.utfpr.labscontrol.cadastrosapi.core.dataprovider.FornecedorRepository;
 import br.edu.utfpr.labscontrol.cadastrosapi.core.entity.Fornecedor;
 import br.edu.utfpr.labscontrol.cadastrosapi.shared.exception.BusinessException;
 import br.edu.utfpr.labscontrol.cadastrosapi.shared.vo.Cnpj;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -63,9 +65,16 @@ public class FornecedorRepositoryImpl implements FornecedorRepository {
     }
 
     @Override
-    public Page<Fornecedor> buscaPaginada(Fornecedor filtros, Pageable pageable) {
-        var entityFiltros = this.fornecedorEntityMapper.toEntity(filtros);
-        Example<FornecedorEntity> example = Example.of(entityFiltros);
+    public Page<Fornecedor> buscaPaginada(final FornecedorFilter filtros, Pageable pageable) {
+        var entityFiltros = FornecedorEntity.builder()
+                .cnpj(filtros.getCnpj())
+                .nomeFantasia(filtros.getNomeFantasia())
+                .razaoSocial(filtros.getRazaoSocial())
+                .build();
+
+        var matcher = ExampleMatcher.matchingAll().withIgnoreCase().withIgnoreNullValues();
+        var example = Example.of(entityFiltros, matcher);
+
         return this.fornecedorRepository.findAll(example, pageable).map(this.fornecedorEntityMapper::toModel);
     }
 

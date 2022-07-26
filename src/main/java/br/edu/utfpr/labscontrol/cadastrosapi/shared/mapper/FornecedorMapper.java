@@ -1,6 +1,6 @@
 package br.edu.utfpr.labscontrol.cadastrosapi.shared.mapper;
 
-import br.edu.utfpr.labscontrol.cadastrosapi.application.entrypoint.v1.dto.ContatosDto;
+import br.edu.utfpr.labscontrol.cadastrosapi.shared.dto.ContatosDto;
 import br.edu.utfpr.labscontrol.cadastrosapi.core.entity.Fornecedor;
 import br.edu.utfpr.labscontrol.cadastrosapi.core.entity.vo.contato.TipoDeContato;
 import br.edu.utfpr.labscontrol.cadastrosapi.shared.dto.FornecedorDto;

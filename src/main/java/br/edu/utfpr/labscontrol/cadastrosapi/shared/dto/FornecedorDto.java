@@ -1,6 +1,5 @@
 package br.edu.utfpr.labscontrol.cadastrosapi.shared.dto;
 
-import br.edu.utfpr.labscontrol.cadastrosapi.application.entrypoint.v1.dto.ContatosDto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;

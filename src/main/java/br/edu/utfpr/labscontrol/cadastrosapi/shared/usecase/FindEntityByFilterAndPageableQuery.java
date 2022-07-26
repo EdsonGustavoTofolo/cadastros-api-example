@@ -4,6 +4,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 @FunctionalInterface
-public interface FindEntityByFilterAndPageableQuery<T> {
-    Page<T> execute(T filters, Pageable pageable);
+public interface FindEntityByFilterAndPageableQuery<T, F> {
+    Page<T> execute(F filters, Pageable pageable);
 }
