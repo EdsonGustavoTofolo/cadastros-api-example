@@ -12,14 +12,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.awt.print.Pageable;
-import java.util.Map;
+import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.http.HttpHeaders.LOCATION;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -104,7 +99,7 @@ public class FornecedorRestController extends CrudControllerBase<FornecedorDto, 
     @Operation(summary = "Busca de fornecedores",
             description = "Busca fornecedores paginados conforme filtros e paginação informados")
     @Override
-    public Page<FornecedorDto> getAllByFilterAndPageable(Map<String, String> filtros, Pageable pageable) {
+    public Page<FornecedorDto> getAllByFilterAndPageable(@RequestBody FornecedorDto filtros, Pageable pageable) {
         return super.getAllByFilterAndPageable(filtros, pageable);
     }
 

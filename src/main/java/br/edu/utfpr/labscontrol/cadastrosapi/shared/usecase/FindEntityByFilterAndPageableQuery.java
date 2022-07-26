@@ -1,11 +1,9 @@
 package br.edu.utfpr.labscontrol.cadastrosapi.shared.usecase;
 
 import org.springframework.data.domain.Page;
-
-import java.awt.print.Pageable;
-import java.util.Map;
+import org.springframework.data.domain.Pageable;
 
 @FunctionalInterface
 public interface FindEntityByFilterAndPageableQuery<T> {
-    Page<T> execute(Map<String, String> filters, Pageable pageable);
+    Page<T> execute(T filters, Pageable pageable);
 }

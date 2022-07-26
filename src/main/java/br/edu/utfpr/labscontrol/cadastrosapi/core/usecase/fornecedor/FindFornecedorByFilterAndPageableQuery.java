@@ -6,9 +6,7 @@ import br.edu.utfpr.labscontrol.cadastrosapi.shared.mapper.FornecedorMapper;
 import br.edu.utfpr.labscontrol.cadastrosapi.shared.usecase.FindEntityByFilterAndPageableQuery;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-
-import java.awt.print.Pageable;
-import java.util.Map;
+import org.springframework.data.domain.Pageable;
 
 @RequiredArgsConstructor
 public class FindFornecedorByFilterAndPageableQuery implements FindEntityByFilterAndPageableQuery<FornecedorDto> {
@@ -17,7 +15,7 @@ public class FindFornecedorByFilterAndPageableQuery implements FindEntityByFilte
     private final FornecedorMapper mapper;
 
     @Override
-    public Page<FornecedorDto> execute(Map<String, String> filters, Pageable pageable) {
+    public Page<FornecedorDto> execute(FornecedorDto filters, Pageable pageable) {
         return null;
     }
 }

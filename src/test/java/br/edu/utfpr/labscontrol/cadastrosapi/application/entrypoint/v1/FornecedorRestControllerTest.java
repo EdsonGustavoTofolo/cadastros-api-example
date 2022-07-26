@@ -2,6 +2,7 @@ package br.edu.utfpr.labscontrol.cadastrosapi.application.entrypoint.v1;
 
 import br.edu.utfpr.labscontrol.cadastrosapi.core.usecase.fornecedor.CreateFornecedorCommand;
 import br.edu.utfpr.labscontrol.cadastrosapi.core.usecase.fornecedor.FindFornecedorByCnpjQuery;
+import br.edu.utfpr.labscontrol.cadastrosapi.core.usecase.fornecedor.FindFornecedorByFilterAndPageableQuery;
 import br.edu.utfpr.labscontrol.cadastrosapi.core.usecase.fornecedor.UpdateFornecedorCommand;
 import br.edu.utfpr.labscontrol.cadastrosapi.shared.dto.FornecedorDto;
 import br.edu.utfpr.labscontrol.cadastrosapi.shared.exception.EntityNotFoundException;
@@ -14,6 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,12 +25,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.util.List;
+
 import static br.edu.utfpr.labscontrol.cadastrosapi.application.entrypoint.v1.builder.FornecedorDtoBuilder.umFornecedor;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -47,6 +52,43 @@ class FornecedorRestControllerTest {
     private CreateFornecedorCommand createFornecedorCommand;
     @MockBean
     private UpdateFornecedorCommand updateFornecedorCommand;
+    @MockBean
+    private FindFornecedorByFilterAndPageableQuery fornecedorByFilterAndPageableQuery;
+
+    @Test
+    void deveBuscarFornecedoresFiltradosEpaginados() throws Exception {
+        // cenario
+        var pageNumber = 0;
+        var pageSize = 10;
+        var fornecedorForFilter = umFornecedor().get();
+        var filtros = this.mapper.writeValueAsString(fornecedorForFilter);
+        var pageable = "page=" + pageNumber + "&size=" + pageSize;
+        var fornecedores = List.of(umFornecedor().get());
+
+        var page = new PageImpl<>(fornecedores, PageRequest.of(pageNumber, pageSize), fornecedores.size());
+
+        Mockito.when(fornecedorByFilterAndPageableQuery
+                .execute(any(FornecedorDto.class), any(Pageable.class)))
+                .thenReturn(page);
+
+        // execucao
+        var perform = this.mvc.perform(
+                get(URL_API_V1_FORNECEDORES + "?" + pageable)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(filtros));
+
+        // validacao
+        perform.andExpect(status().isOk())
+                .andExpect(jsonPath("$.content").exists())
+                .andExpect(jsonPath("$.content").isArray())
+                .andExpect(jsonPath("$.content.length()", is(1)))
+                .andExpect(jsonPath("$.pageable").exists())
+                .andExpect(jsonPath("$.pageable.page").value(pageNumber))
+                .andExpect(jsonPath("$.pageable.size").value(pageSize))
+                .andExpect(jsonPath("$.total").value(fornecedores.size()))
+                .andDo(print())
+                .andReturn();
+    }
 
     @Test
     void naoDeveCriarFonecedorSemCnpj() throws Exception {

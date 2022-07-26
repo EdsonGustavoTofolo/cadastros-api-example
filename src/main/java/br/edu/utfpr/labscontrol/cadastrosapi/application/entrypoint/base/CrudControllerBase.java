@@ -3,12 +3,11 @@ package br.edu.utfpr.labscontrol.cadastrosapi.application.entrypoint.base;
 import br.edu.utfpr.labscontrol.cadastrosapi.shared.usecase.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.awt.print.Pageable;
 import java.net.URI;
-import java.util.Map;
 
 @RequiredArgsConstructor
 public abstract class CrudControllerBase<T, ID> implements CrudController<T, ID> {
@@ -49,7 +48,7 @@ public abstract class CrudControllerBase<T, ID> implements CrudController<T, ID>
     }
 
     @Override
-    public Page<T> getAllByFilterAndPageable(Map<String, String> filtros, Pageable pageable) {
+    public Page<T> getAllByFilterAndPageable(T filtros, Pageable pageable) {
         return this.findEntityByFilterPageable.execute(filtros, pageable);
     }
 }
